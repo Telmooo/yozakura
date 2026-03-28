@@ -1,7 +1,7 @@
 // Yozakura - SCSS example
 // These files are all gibberish, do not attempt to run them
 
-//  Variables 
+//  Variables
 $color-bg:       #160f1e;
 $color-bg-muted: #1a1025;
 $color-fg:       #e0d4e8;
@@ -37,7 +37,7 @@ $spacing: (
   16: 4rem,
 );
 
-//  Functions 
+//  Functions
 @function space($key) {
   @if map-has-key($spacing, $key) {
     @return map-get($spacing, $key);
@@ -54,7 +54,7 @@ $spacing: (
   @return $px / 16px * 1rem;
 }
 
-//  Mixins 
+//  Mixins
 @mixin respond-to($breakpoint) {
   $bp: breakpoint($breakpoint);
   @if $bp {
@@ -110,7 +110,7 @@ $spacing: (
   -webkit-text-fill-color: transparent;
 }
 
-//  Extends / Placeholders 
+//  Extends / Placeholders
 %reset-button {
   appearance: none;
   background: none;
@@ -126,7 +126,7 @@ $spacing: (
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
-//  Nested Selectors 
+//  Nested Selectors
 .nav {
   display: flex;
   gap: space(4);
@@ -185,7 +185,7 @@ $spacing: (
   }
 }
 
-//  Button Component 
+//  Button Component
 $btn-variants: (
   "primary":   ($color-purple, $color-bg),
   "success":   ($color-green, $color-bg),
@@ -230,7 +230,7 @@ $btn-variants: (
   }
 }
 
-//  Form Styles 
+//  Form Styles
 %input-base {
   background: rgba($color-fg, 0.05);
   border: 1px solid rgba($color-fg, 0.2);
@@ -267,7 +267,7 @@ select {
   @extend %input-base;
 }
 
-//  Loops 
+//  Loops
 // Generate spacing utilities
 @each $key, $value in $spacing {
   .mt-#{$key} { margin-top: $value; }
@@ -289,7 +289,7 @@ select {
   }
 }
 
-//  String Interpolation 
+//  String Interpolation
 $prefixes: webkit, moz, ms, o;
 
 @mixin prefix($property, $value) {
@@ -305,7 +305,7 @@ $prefixes: webkit, moz, ms, o;
   font-weight: 700;
 }
 
-//  Responsive Grid 
+//  Responsive Grid
 .grid {
   display: grid;
   gap: space(4);
@@ -325,7 +325,7 @@ $prefixes: webkit, moz, ms, o;
   }
 }
 
-//  Maps for Theme Tokens 
+//  Maps for Theme Tokens
 $syntax-colors: (
   "keyword":   $color-purple,
   "function":  $color-blue,

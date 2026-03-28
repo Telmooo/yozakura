@@ -4,7 +4,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-#  Constants & Variables 
+#  Constants & Variables
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly SCRIPT_NAME="$(basename "$0")"
 readonly VERSION="1.0.0"
@@ -20,7 +20,7 @@ declare -A COLOR_MAP=(
   ["number"]="#f78c6c"
 )
 
-#  Colors for output 
+#  Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -30,7 +30,7 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
-#  Logging 
+#  Logging
 log() {
   local level="$1"; shift
   local message="$*"
@@ -53,7 +53,7 @@ warn()  { log warn  "$@"; }
 error() { log error "$@"; }
 debug() { log debug "$@"; }
 
-#  Error Handling & Traps 
+#  Error Handling & Traps
 cleanup() {
   local exit_code=$?
   debug "Cleanup called with exit code: ${exit_code}"
@@ -72,7 +72,7 @@ trap 'cleanup' EXIT
 trap 'handle_error $LINENO' ERR
 trap 'warn "Interrupted by user"; exit 130' INT TERM
 
-#  Functions 
+#  Functions
 usage() {
   cat <<EOF
 ${BOLD}Usage:${NC} ${SCRIPT_NAME} [OPTIONS] <command>
@@ -138,7 +138,7 @@ factorial() {
   fi
 }
 
-#  String Operations 
+#  String Operations
 string_demos() {
   local str="Hello, World!"
 
@@ -170,7 +170,7 @@ string_demos() {
   echo "Error if unset: ${str:?variable must be set}"
 }
 
-#  Arrays 
+#  Arrays
 array_demos() {
   # Indexed array
   local -a fruits=("apple" "banana" "cherry" "date" "elderberry")
@@ -202,7 +202,7 @@ array_demos() {
   done
 }
 
-#  Control Flow 
+#  Control Flow
 control_flow() {
   local value=42
 
@@ -244,7 +244,7 @@ control_flow() {
   esac
 }
 
-#  Loops 
+#  Loops
 loop_demos() {
   # C-style for loop
   for (( i = 0; i < 5; i++ )); do
@@ -293,7 +293,7 @@ Go,Static,Yes
 EOF
 }
 
-#  Process Substitution & Command Substitution 
+#  Process Substitution & Command Substitution
 advanced_demos() {
   # Command substitution
   local current_date
@@ -328,7 +328,7 @@ advanced_demos() {
   # inner is not accessible here
 }
 
-#  getopts Argument Parsing 
+#  getopts Argument Parsing
 parse_args() {
   local env="staging"
   local verbose=false
@@ -359,7 +359,7 @@ parse_args() {
   echo "env=${env} verbose=${verbose} args=${args[*]:-none}"
 }
 
-#  Main Entry Point 
+#  Main Entry Point
 main() {
   info "Starting ${APP_NAME} v${VERSION}"
 

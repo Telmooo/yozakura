@@ -13,7 +13,7 @@ import java.nio.file.*;
 import java.time.*;
 import java.lang.annotation.*;
 
-//  Annotations 
+//  Annotations
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
 @interface Audited {
@@ -30,7 +30,7 @@ interface Transformer<T, R> {
     }
 }
 
-//  Enums 
+//  Enums
 enum Status {
     PENDING("Pending", 0),
     ACTIVE("Active", 1),
@@ -59,7 +59,7 @@ enum Status {
     }
 }
 
-//  Records 
+//  Records
 record Point(double x, double y) {
     // Compact constructor with validation
     Point {
@@ -83,7 +83,7 @@ record Point(double x, double y) {
 
 record UserDTO(String id, String name, String email) {}
 
-//  Sealed Classes 
+//  Sealed Classes
 sealed interface Shape permits Circle, Rectangle, Triangle {
     double area();
     double perimeter();
@@ -112,7 +112,7 @@ record Triangle(double base, double height, double hypotenuse) implements Shape 
     public double perimeter() { return base + height + hypotenuse; }
 }
 
-//  Generic Classes 
+//  Generic Classes
 class Result<T> {
     private final T value;
     private final Exception error;
@@ -155,7 +155,7 @@ class Result<T> {
     }
 }
 
-//  Abstract Classes 
+//  Abstract Classes
 abstract class AbstractRepository<T, ID> {
     protected final Map<ID, T> store = new HashMap<>();
 
@@ -175,7 +175,7 @@ abstract class AbstractRepository<T, ID> {
     }
 }
 
-//  Interfaces with Default Methods 
+//  Interfaces with Default Methods
 interface Auditable {
     Instant getCreatedAt();
     Instant getUpdatedAt();
@@ -195,11 +195,11 @@ interface Cacheable<K> {
     }
 }
 
-//  Main Class 
+//  Main Class
 @Audited("main")
 public class Main {
 
-    //  Lambda & Streams 
+    //  Lambda & Streams
     static void demonstrateStreams() {
         List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
@@ -234,7 +234,7 @@ public class Main {
             .collect(Collectors.joining(", ", "[", "]"));
     }
 
-    //  Switch Expressions 
+    //  Switch Expressions
     static String classify(Object obj) {
         return switch (obj) {
             case Integer i when i < 0 -> "negative int: " + i;
@@ -246,7 +246,7 @@ public class Main {
         };
     }
 
-    //  Var & instanceof Pattern 
+    //  Var & instanceof Pattern
     static void demonstrateModernFeatures() {
         var list = new ArrayList<String>();
         var map = new HashMap<String, Integer>();
@@ -257,7 +257,7 @@ public class Main {
         }
     }
 
-    //  Concurrency 
+    //  Concurrency
     static void demonstrateConcurrency() throws Exception {
         var executor = Executors.newVirtualThreadPerTaskExecutor();
         var futures = new ArrayList<CompletableFuture<String>>();

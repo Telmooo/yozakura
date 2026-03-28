@@ -1,7 +1,7 @@
 # Yozakura - TOML example
 # These files are all gibberish, do not attempt to run them
 
-#  Top-level scalars 
+#  Top-level scalars
 name        = "yozakura"
 version     = "1.0.0"
 description = "A dark VSCode theme"
@@ -11,7 +11,7 @@ downloads   = 9876
 price       = 0.0
 nothing     = ""          # TOML has no null - use empty string or omit key
 
-#  Integers 
+#  Integers
 port           = 8080
 max_retries    = 3
 big_number     = 1_000_000       # underscores for readability
@@ -20,7 +20,7 @@ hex_color      = 0xC792EA
 octal_perms    = 0o755
 binary_flags   = 0b11001010
 
-#  Floats 
+#  Floats
 pi             = 3.14159265358979
 scientific     = 6.674e-11
 negative_float = -273.15
@@ -28,18 +28,18 @@ infinity       = inf
 neg_infinity   = -inf
 not_a_number   = nan
 
-#  Booleans 
+#  Booleans
 is_active  = true
 is_deleted = false
 
-#  Datetimes 
+#  Datetimes
 created_at   = 2026-03-28T10:30:00Z            # offset datetime
 updated_at   = 2026-03-28T12:00:00+01:00       # with timezone offset
 local_dt     = 2026-03-28T10:30:00             # local datetime (no offset)
 release_date = 2026-03-28                       # local date
 start_time   = 10:30:00                         # local time
 
-#  Strings 
+#  Strings
 plain       = "Hello, World!"
 with_escape = "Line1\nLine2\tTabbed\n\"Quoted\""
 with_unicode = "Cherry blossom: \u6843\u306e\u82b1 \U0001F338"
@@ -61,7 +61,7 @@ multiline_literal = '''
   Even "quotes" and \backslashes are literal.
   '''
 
-#  Arrays 
+#  Arrays
 keywords    = ["theme", "dark", "purple", "vscode"]
 ports       = [8080, 8443, 9090]
 pi_digits   = [3, 1, 4, 1, 5, 9, 2, 6, 5]
@@ -85,11 +85,11 @@ matrix = [
   [7, 8, 9],
 ]
 
-#  Inline Tables 
+#  Inline Tables
 point        = { x = 3.0, y = 4.0 }
 server       = { host = "localhost", port = 8080, ssl = false }
 
-#  Standard Tables 
+#  Standard Tables
 [package]
 name        = "yozakura"
 version     = "1.0.0"
@@ -106,7 +106,7 @@ exclude     = ["test-workspace/**", ".vscode/**"]
 msrv        = "1.75.0"
 ci-matrix   = ["stable", "beta", "nightly"]
 
-#  Dependencies-style Table 
+#  Dependencies-style Table
 [dependencies]
 serde       = { version = "1.0", features = ["derive"] }
 tokio       = { version = "1", features = ["full"] }
@@ -121,7 +121,7 @@ tokio       = { version = "1", features = ["test-util"] }
 insta       = "1"
 tempfile    = "3"
 
-#  Nested Tables 
+#  Nested Tables
 [database]
 driver   = "postgres"
 host     = "localhost"
@@ -168,7 +168,7 @@ max_size  = "100MB"
 max_files = 5
 compress  = true
 
-#  Array of Tables 
+#  Array of Tables
 [[theme.colors]]
 name  = "keyword"
 hex   = "#C792EA"
@@ -209,7 +209,7 @@ name  = "tag"
 hex   = "#F07178"
 usage = "HTML/JSX tags"
 
-#  Array of Tables with Sub-tables 
+#  Array of Tables with Sub-tables
 [[routes]]
 path    = "/"
 method  = "GET"
@@ -237,7 +237,7 @@ handler = "posts.create"
 public  = false
 middleware = ["auth", "validate", "audit"]
 
-#  Feature Flags 
+#  Feature Flags
 [features]
 default            = ["std", "serde"]
 std                = []
@@ -246,7 +246,7 @@ async              = ["dep:tokio"]
 full               = ["std", "serde", "async"]
 nightly            = []
 
-#  Build Profile 
+#  Build Profile
 [profile.dev]
 opt-level        = 0
 debug            = true

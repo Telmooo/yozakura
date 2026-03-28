@@ -45,12 +45,12 @@ concept Printable = requires(T t, std::ostream& os) { os << t; };
 
 } // namespace detail
 
-//  Constants 
+//  Constants
 inline constexpr double PI = 3.14159265358979323846;
 inline constexpr std::string_view APP_NAME = "yozakura";
 inline constexpr int MAX_RETRIES = 3;
 
-//  Type Aliases 
+//  Type Aliases
 using ID = std::uint64_t;
 using StringMap = std::unordered_map<std::string, std::string>;
 template <typename T>
@@ -58,7 +58,7 @@ using Optional = std::optional<T>;
 template <typename T, typename E = std::string>
 using Result = std::expected<T, E>;
 
-//  Enums 
+//  Enums
 enum class Status : std::uint8_t {
     Pending = 0,
     Active  = 1,
@@ -80,7 +80,7 @@ std::string_view to_string(Status s) {
     std::unreachable();
 }
 
-//  Structs & Classes 
+//  Structs & Classes
 struct Point {
     double x{}, y{};
 
@@ -112,7 +112,7 @@ struct Point {
     }
 };
 
-//  Templates 
+//  Templates
 template <detail::Numeric T>
 class Stack {
 public:
@@ -161,7 +161,7 @@ private:
     std::vector<bool> bits_;
 };
 
-//  Variadic Templates 
+//  Variadic Templates
 template <typename... Args>
 void print(Args&&... args) {
     ((std::cout << std::forward<Args>(args) << ' '), ...);
@@ -173,7 +173,7 @@ constexpr T sum(T first, Ts... rest) {
     return (first + ... + rest);
 }
 
-//  Concepts 
+//  Concepts
 template <typename Container>
 concept Iterable = requires(Container c) {
     std::begin(c);
@@ -187,7 +187,7 @@ auto to_vector(C&& container) {
     return std::vector<T>(std::begin(container), std::end(container));
 }
 
-//  Smart Pointers & Move Semantics 
+//  Smart Pointers & Move Semantics
 class Resource {
 public:
     explicit Resource(std::string name) : name_{std::move(name)} {
@@ -209,7 +209,7 @@ private:
     std::string name_;
 };
 
-//  Inheritance & Virtual 
+//  Inheritance & Virtual
 class Shape {
 public:
     virtual ~Shape() = default;
@@ -252,7 +252,7 @@ protected:
     double width_, height_;
 };
 
-//  Lambdas 
+//  Lambdas
 void demonstrate_lambdas() {
     auto add = [](int a, int b) -> int { return a + b; };
     auto multiply = [](int a, int b) noexcept { return a * b; };
@@ -274,7 +274,7 @@ void demonstrate_lambdas() {
     }();
 }
 
-//  Ranges 
+//  Ranges
 void demonstrate_ranges() {
     using namespace std::views;
 
@@ -292,7 +292,7 @@ void demonstrate_ranges() {
     auto iota_range = iota(1) | take(5) | transform([](int n) { return n * n; });
 }
 
-//  Variant & Visit 
+//  Variant & Visit
 using Value = std::variant<int, double, std::string, bool>;
 
 std::string visit_value(const Value& val) {
@@ -309,7 +309,7 @@ std::string visit_value(const Value& val) {
     }, val);
 }
 
-//  Main 
+//  Main
 } // namespace yozakura
 
 int main() {

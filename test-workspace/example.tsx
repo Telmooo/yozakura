@@ -22,7 +22,7 @@ import React, {
   type Ref,
 } from "react";
 
-//  Types 
+//  Types
 type Theme = "light" | "dark" | "system";
 type Size  = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -44,7 +44,7 @@ interface Post {
   likeCount: number;
 }
 
-//  Context 
+//  Context
 interface ThemeContextValue {
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -81,7 +81,7 @@ function ThemeProvider({ children, defaultTheme = "system" }: {
   );
 }
 
-//  useReducer 
+//  useReducer
 type CartItem = { id: string; name: string; price: number; qty: number };
 
 type CartAction =
@@ -121,7 +121,7 @@ function useCart() {
   return { items, total, dispatch };
 }
 
-//  Custom Hooks 
+//  Custom Hooks
 function useDebounce<T>(value: T, delay: number): T {
   const [debounced, setDebounced] = useState(value);
 
@@ -187,7 +187,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
   return [storedValue, setValue] as const;
 }
 
-//  forwardRef Component 
+//  forwardRef Component
 interface InputProps extends ComponentPropsWithoutRef<"input"> {
   label: string;
   error?: string;
@@ -241,7 +241,7 @@ const Input = forwardRef<InputHandle, InputProps>(function Input(
   );
 });
 
-//  Compound Component 
+//  Compound Component
 interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   variant?: "primary" | "secondary" | "ghost" | "danger";
   size?: Size;
@@ -289,7 +289,7 @@ const Button: FC<ButtonProps> = memo(function Button({
   );
 });
 
-//  Card Component 
+//  Card Component
 function PostCard({ post, onLike }: { post: Post; onLike: (id: string) => void }) {
   const { resolvedTheme } = useTheme();
   const [liked, setLiked] = useState(false);
@@ -359,7 +359,7 @@ function PostCard({ post, onLike }: { post: Post; onLike: (id: string) => void }
   );
 }
 
-//  Lazy & Suspense 
+//  Lazy & Suspense
 const HeavyChart = lazy(() => import("./HeavyChart"));
 
 function Dashboard() {
@@ -421,7 +421,7 @@ function Dashboard() {
   );
 }
 
-//  App Root 
+//  App Root
 export default function App() {
   return (
     <ThemeProvider defaultTheme="dark">

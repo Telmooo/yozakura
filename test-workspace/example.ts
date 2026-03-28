@@ -1,7 +1,7 @@
 // Yozakura - TS example
 // These files are all gibberish, do not attempt to run them
 
-//  Primitive Types & Variables 
+//  Primitive Types & Variables
 const message: string = "Hello, TypeScript!";
 let count: number = 42;
 let bigNum: bigint = 9007199254740991n;
@@ -10,7 +10,7 @@ const nothing: null = null;
 const missing: undefined = undefined;
 const unique: symbol = Symbol("id");
 
-//  Enums 
+//  Enums
 enum Direction {
   Up = "UP",
   Down = "DOWN",
@@ -25,7 +25,7 @@ const enum Status {
   Banned,
 }
 
-//  Interfaces 
+//  Interfaces
 interface Entity {
   readonly id: string;
   createdAt: Date;
@@ -44,14 +44,14 @@ interface Repository<T extends Entity> {
   delete(id: string): Promise<void>;
 }
 
-//  Type Aliases 
+//  Type Aliases
 type ID = string | number;
 type Nullable<T> = T | null;
 type Optional<T> = T | undefined;
 type DeepReadonly<T> = { readonly [K in keyof T]: DeepReadonly<T[K]> };
 type Awaited<T> = T extends Promise<infer U> ? U : T;
 
-//  Union & Intersection Types 
+//  Union & Intersection Types
 type StringOrNumber = string | number;
 type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E };
 
@@ -60,7 +60,7 @@ type WithTimestamps<T> = T & {
   updatedAt: Date;
 };
 
-//  Mapped & Conditional Types 
+//  Mapped & Conditional Types
 type Mutable<T> = { -readonly [K in keyof T]: T[K] };
 type RequiredKeys<T> = { [K in keyof T]-?: undefined extends T[K] ? never : K }[keyof T];
 type OptionalKeys<T> = { [K in keyof T]: undefined extends T[K] ? K : never }[keyof T];
@@ -68,12 +68,12 @@ type OptionalKeys<T> = { [K in keyof T]: undefined extends T[K] ? K : never }[ke
 type IsString<T> = T extends string ? true : false;
 type Flatten<T> = T extends Array<infer U> ? U : T;
 
-//  Template Literal Types 
+//  Template Literal Types
 type EventName = `on${Capitalize<string>}`;
 type CSSProperty = `--${string}`;
 type Route = `/api/${string}`;
 
-//  Generics 
+//  Generics
 function identity<T>(value: T): T {
   return value;
 }
@@ -119,7 +119,7 @@ class Stack<T> {
   }
 }
 
-//  Decorators 
+//  Decorators
 function log(target: unknown, key: string, descriptor: PropertyDescriptor) {
   const original = descriptor.value;
   descriptor.value = function (...args: unknown[]) {
@@ -142,7 +142,7 @@ function singleton<T extends { new (...args: unknown[]): object }>(constructor: 
   };
 }
 
-//  Abstract Classes 
+//  Abstract Classes
 abstract class Shape {
   abstract readonly type: string;
   abstract area(): number;
@@ -174,7 +174,7 @@ class Rectangle extends Shape {
   perimeter() { return 2 * (this.width + this.height); }
 }
 
-//  Utility Types 
+//  Utility Types
 interface User {
   id: string;
   name: string;
@@ -192,7 +192,7 @@ type UserKeys = keyof User;
 type ReturnTypeExample = ReturnType<typeof identity>;
 type ParametersExample = Parameters<typeof merge>;
 
-//  Namespaces 
+//  Namespaces
 namespace Validation {
   export interface Validator<T> {
     validate(value: unknown): value is T;
@@ -214,7 +214,7 @@ namespace Validation {
   }
 }
 
-//  Type Guards & Assertions 
+//  Type Guards & Assertions
 function isString(value: unknown): value is string {
   return typeof value === "string";
 }
@@ -227,7 +227,7 @@ function exhaustive(value: never): never {
   throw new Error(`Unhandled case: ${JSON.stringify(value)}`);
 }
 
-//  Async Patterns 
+//  Async Patterns
 async function retry<T>(
   fn: () => Promise<T>,
   options: { retries: number; delay: number } = { retries: 3, delay: 1000 }

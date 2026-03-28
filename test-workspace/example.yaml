@@ -3,7 +3,7 @@
 ---
 # Document start marker above
 
-#  Scalars 
+#  Scalars
 name: yozakura
 version: "1.0.0"           # quoted string
 port: 8080                 # integer
@@ -18,7 +18,7 @@ datetime: 2026-03-28T10:30:00Z  # datetime
 hex: 0xFF                  # hexadecimal
 octal: 0o17                # octal
 
-#  Strings 
+#  Strings
 plain_string: Hello, World!
 quoted_string: "This has \"quotes\" and \n newlines"
 single_quoted: 'No escape processing here: \n stays as-is'
@@ -41,7 +41,7 @@ literal_strip: |-
   No trailing newline
   after this
 
-#  Sequences (Lists) 
+#  Sequences (Lists)
 languages:
   - JavaScript
   - TypeScript
@@ -64,7 +64,7 @@ mixed_list:
   - [nested, list]
   - key: nested object
 
-#  Mappings (Objects) 
+#  Mappings (Objects)
 author:
   name: author
   email: hello@example.com
@@ -78,7 +78,7 @@ author:
 # Inline mapping
 server: {host: localhost, port: 8080, ssl: false}
 
-#  Nested Structures 
+#  Nested Structures
 config:
   app:
     name: yozakura
@@ -121,7 +121,7 @@ config:
       access_key: "${AWS_ACCESS_KEY}"
       secret_key: "${AWS_SECRET_KEY}"
 
-#  Anchors & Aliases 
+#  Anchors & Aliases
 # Anchors define a reusable node, aliases reference it
 defaults: &defaults
   retry: 3
@@ -144,7 +144,7 @@ internal_api:
     <<: *defaults        # won't work nested, but shown for syntax
     authorization: "Bearer ${TOKEN}"
 
-#  Complex Sequences of Mappings 
+#  Complex Sequences of Mappings
 routes:
   - path: /
     method: GET
@@ -191,7 +191,7 @@ routes:
           body:  {type: string, minLength: 1}
           tags:  {type: array, items: {type: string}}
 
-#  Multi-document (indicated by ---) 
+#  Multi-document (indicated by ---)
 # The following would be a second document if in the same file.
 # We show the marker as a separator:
 ---

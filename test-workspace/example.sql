@@ -1,7 +1,7 @@
 -- Yozakura - SQL example
 -- These files are all gibberish, do not attempt to run them
 
---  DDL: Create Tables 
+--  DDL: Create Tables
 CREATE SCHEMA IF NOT EXISTS app;
 
 CREATE TYPE app.user_status AS ENUM ('pending', 'active', 'inactive', 'banned');
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS app.post_tags (
     PRIMARY KEY (post_id, tag_id)
 );
 
---  Indexes 
+--  Indexes
 CREATE INDEX IF NOT EXISTS idx_users_email      ON app.users (email);
 CREATE INDEX IF NOT EXISTS idx_users_status     ON app.users (status) WHERE deleted_at IS NULL;
 CREATE INDEX IF NOT EXISTS idx_posts_user       ON app.posts (user_id);
@@ -69,7 +69,7 @@ CREATE INDEX IF NOT EXISTS idx_posts_published  ON app.posts (published_at DESC)
 CREATE INDEX IF NOT EXISTS idx_posts_tags_gin   ON app.posts USING GIN (tags);
 CREATE INDEX IF NOT EXISTS idx_posts_metadata   ON app.users USING GIN (metadata jsonb_path_ops);
 
---  Views 
+--  Views
 CREATE OR REPLACE VIEW app.active_users AS
     SELECT id, username, email, score, created_at
     FROM app.users
@@ -93,7 +93,7 @@ CREATE OR REPLACE VIEW app.post_summary AS
     WHERE p.published = TRUE
     GROUP BY p.id, u.username;
 
---  DML: Insert 
+--  DML: Insert
 INSERT INTO app.users (username, email, password, status, age, score)
 VALUES
     ('alice',   'alice@example.com',   'hash_alice',   'active',   28, 95.5),
@@ -117,7 +117,7 @@ FROM app.users
 WHERE status = 'active'
 ON CONFLICT DO NOTHING;
 
---  DML: Update 
+--  DML: Update
 UPDATE app.users
 SET
     status     = 'active',
@@ -126,7 +126,7 @@ WHERE status = 'pending'
   AND created_at < NOW() - INTERVAL '7 days'
 RETURNING id, username, status;
 
---  Queries: SELECT with JOINs 
+--  Queries: SELECT with JOINs
 -- Basic join
 SELECT
     u.username,
@@ -168,7 +168,7 @@ WHERE p.published = TRUE
   AND t.name = ANY(ARRAY['intro', 'tutorial'])
 ORDER BY p.published_at DESC;
 
---  CTEs (Common Table Expressions) 
+--  CTEs (Common Table Expressions)
 WITH
 -- Step 1: Active users with post counts
 user_stats AS (
@@ -211,7 +211,7 @@ SELECT
 FROM top_authors
 ORDER BY view_rank;
 
---  Recursive CTE 
+--  Recursive CTE
 WITH RECURSIVE comment_tree AS (
     -- Base: top-level comments
     SELECT
@@ -246,7 +246,7 @@ FROM comment_tree
 WHERE post_id = 1
 ORDER BY path;
 
---  Window Functions 
+--  Window Functions
 SELECT
     username,
     score,
@@ -277,7 +277,7 @@ FROM (
 ) sub
 WINDOW w AS (PARTITION BY status ORDER BY score DESC);
 
---  Stored Procedure 
+--  Stored Procedure
 CREATE OR REPLACE PROCEDURE app.activate_pending_users(
     p_days_old INTEGER DEFAULT 7,
     OUT p_count INTEGER
@@ -318,7 +318,7 @@ EXCEPTION
 END;
 $$;
 
---  Function 
+--  Function
 CREATE OR REPLACE FUNCTION app.get_user_rank(p_user_id UUID)
 RETURNS TABLE (
     username  TEXT,
@@ -347,7 +347,7 @@ AS $$
     WHERE id = p_user_id;
 $$;
 
---  Transactions 
+--  Transactions
 BEGIN;
 
     SAVEPOINT before_post;
@@ -368,7 +368,7 @@ BEGIN;
 
 COMMIT;
 
---  JSONB Operations 
+--  JSONB Operations
 UPDATE app.users
 SET metadata = metadata || '{"theme": "yozakura", "version": 1}'::jsonb
 WHERE status = 'active';
@@ -383,7 +383,7 @@ FROM app.users
 WHERE metadata @> '{"theme": "yozakura"}'
   AND metadata ? 'version';
 
---  Cleanup 
+--  Cleanup
 -- Soft delete
 UPDATE app.users
 SET deleted_at = NOW()

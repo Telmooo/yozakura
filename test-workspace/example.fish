@@ -2,7 +2,7 @@
 # Yozakura - Fish example
 # These files are all gibberish, do not attempt to run them
 
-#  Variables 
+#  Variables
 set app_name    "yozakura"
 set version     "1.0.0"
 set max_retries 3
@@ -21,7 +21,7 @@ set -l local_var "only in this scope"
 set languages JavaScript TypeScript Python Rust Go Java "C++"
 set colors "#c792ea" "#82aaff" "#c3e88d" "#f78c6c" "#ffcb6b"
 
-#  String Expansion 
+#  String Expansion
 echo "App: $app_name v$version"
 echo "Languages: $languages"           # prints all elements
 echo "First: $languages[1]"            # 1-indexed
@@ -29,13 +29,13 @@ echo "Last: $languages[-1]"
 echo "Slice: $languages[2..4]"
 echo "Count: "(count $languages)
 
-#  Command Substitution 
+#  Command Substitution
 set current_dir (pwd)
 set file_count  (ls | count)
 set git_branch  (git rev-parse --abbrev-ref HEAD 2>/dev/null; or echo "not a repo")
 set timestamp   (date "+%Y-%m-%dT%H:%M:%S")
 
-#  Functions 
+#  Functions
 function log
     set level $argv[1]
     set message $argv[2..]
@@ -115,7 +115,7 @@ function split_path
     echo $dir $base $ext
 end
 
-#  Control Flow 
+#  Control Flow
 function demo_control_flow
     set value 42
 
@@ -158,7 +158,7 @@ function demo_control_flow
     end
 end
 
-#  Loops 
+#  Loops
 function demo_loops
     # for-in
     for lang in $languages
@@ -194,7 +194,7 @@ function demo_loops
     end
 end
 
-#  String Operations 
+#  String Operations
 function demo_strings
     set str "Hello, World! Hello, Fish!"
 
@@ -238,7 +238,7 @@ function demo_strings
     end
 end
 
-#  Math 
+#  Math
 function demo_math
     echo (math 1 + 2)
     echo (math 10 / 3)
@@ -254,7 +254,7 @@ function demo_math
     echo (math "sin(pi / 2)")
 end
 
-#  Piping & Redirection 
+#  Piping & Redirection
 function demo_pipes
     # Basic pipe
     echo "one two three" | string split " " | sort
@@ -273,7 +273,7 @@ function demo_pipes
     or log warn "command failed (ignored)"
 end
 
-#  Events 
+#  Events
 function on_variable_set --on-variable fish_greeting
     log debug "fish_greeting was changed"
 end
@@ -282,7 +282,7 @@ function on_job_exit --on-job-exit %last
     log debug "Last background job exited"
 end
 
-#  Completions (would go in completions/yozakura.fish) 
+#  Completions (would go in completions/yozakura.fish)
 function demo_completions
     # This shows how completions are structured
     complete -c deploy -s e -l env -d "Target environment" -r -a "staging production"
@@ -291,7 +291,7 @@ function demo_completions
     complete -c deploy -s h -l help -d "Show help"
 end
 
-#  Configuration 
+#  Configuration
 # These would typically be in ~/.config/fish/config.fish
 function fish_greeting
     log info "Welcome to fish, $USER!"
@@ -327,7 +327,7 @@ function fish_prompt
     echo -n "> "
 end
 
-#  Main 
+#  Main
 function main
     log info "Starting $app_name v$version"
 

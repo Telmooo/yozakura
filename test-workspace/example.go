@@ -13,14 +13,14 @@ import (
 	"time"
 )
 
-//  Constants 
+//  Constants
 const (
 	maxRetries = 3
 	appName    = "yozakura"
 	version    = "1.0.0"
 )
 
-//  Custom Types & Errors 
+//  Custom Types & Errors
 type UserID string
 type OrderID int64
 
@@ -52,7 +52,7 @@ func newNotFoundError(resource string, id any) *AppError {
 	}
 }
 
-//  Interfaces 
+//  Interfaces
 type Shape interface {
 	Area() float64
 	Perimeter() float64
@@ -66,7 +66,7 @@ type Repository[T any] interface {
 	Delete(ctx context.Context, id string) error
 }
 
-//  Structs 
+//  Structs
 type Point struct {
 	X, Y float64
 }
@@ -85,7 +85,7 @@ func (p Point) String() string {
 	return fmt.Sprintf("(%.2f, %.2f)", p.X, p.Y)
 }
 
-//  Embedding 
+//  Embedding
 type Animal struct {
 	Name    string
 	Species string
@@ -112,7 +112,7 @@ func (d Dog) Perform() []string {
 	return result
 }
 
-//  Shapes (implementing Shape interface) 
+//  Shapes (implementing Shape interface)
 type Circle struct {
 	Center Point
 	Radius float64
@@ -139,7 +139,7 @@ func (r Rectangle) String() string {
 	return fmt.Sprintf("Rect(%.2fx%.2f)", r.Width(), r.Height())
 }
 
-//  Generics 
+//  Generics
 type Set[T comparable] struct {
 	items map[T]struct{}
 }
@@ -175,7 +175,7 @@ func Filter[T any](slice []T, predicate func(T) bool) []T {
 	return result
 }
 
-//  Goroutines & Channels 
+//  Goroutines & Channels
 func producer(ctx context.Context, nums []int) <-chan int {
 	ch := make(chan int, len(nums))
 	go func() {
@@ -228,7 +228,7 @@ func merge(channels ...<-chan int) <-chan int {
 	return out
 }
 
-//  Defer 
+//  Defer
 func withDefer() error {
 	f, err := os.Open("example.txt")
 	if err != nil {
@@ -245,7 +245,7 @@ func withDefer() error {
 	return nil
 }
 
-//  Variadic Functions 
+//  Variadic Functions
 func sum(nums ...int) int {
 	total := 0
 	for _, n := range nums {
@@ -260,7 +260,7 @@ func logWithFields(msg string, fields ...slog.Attr) {
 	fmt.Println(msg)
 }
 
-//  Type Assertions & Type Switches 
+//  Type Assertions & Type Switches
 func describe(i interface{}) string {
 	switch v := i.(type) {
 	case int:
@@ -280,14 +280,14 @@ func describe(i interface{}) string {
 	}
 }
 
-//  Init 
+//  Init
 func init() {
 	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		Level: slog.LevelDebug,
 	})))
 }
 
-//  Main 
+//  Main
 func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()

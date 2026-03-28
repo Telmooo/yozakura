@@ -1,7 +1,7 @@
 # Yozakura - Python example
 # These files are all gibberish, do not attempt to run them
 
-#  Imports 
+#  Imports
 from __future__ import annotations
 
 import asyncio
@@ -33,7 +33,7 @@ from typing import (
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
-#  Constants 
+#  Constants
 VERSION: str = "1.0.0"
 MAX_RETRIES: int = 3
 PI: float = 3.14159265358979
@@ -44,7 +44,7 @@ K = TypeVar("K")
 V = TypeVar("V")
 
 
-#  Enums 
+#  Enums
 class Color(Enum):
     RED = auto()
     GREEN = auto()
@@ -62,7 +62,7 @@ class Permission(Flag):
     ALL = READ | WRITE | EXECUTE
 
 
-#  Dataclasses 
+#  Dataclasses
 @dataclass(frozen=True)
 class Point:
     x: float
@@ -85,7 +85,7 @@ class Config:
     _cache: dict[str, Any] = field(default_factory=dict, init=False, repr=False)
 
 
-#  Abstract Base Classes & Protocols 
+#  Abstract Base Classes & Protocols
 class Repository(ABC, Generic[T]):
     @abstractmethod
     def find_by_id(self, id: str) -> Optional[T]:
@@ -114,7 +114,7 @@ class Drawable(Protocol):
         ...
 
 
-#  Decorators 
+#  Decorators
 def retry(retries: int = 3, delay: float = 1.0, exceptions: tuple[type[Exception], ...] = (Exception,)):
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @functools.wraps(func)
@@ -145,7 +145,7 @@ def cached_property(func: Callable[[Any], T]) -> property:
     return property(getter)
 
 
-#  Classes 
+#  Classes
 class Animal:
     _count: ClassVar[int] = 0
 
@@ -203,7 +203,7 @@ class Dog(Animal):
         return iter(self._tricks)
 
 
-#  Generators 
+#  Generators
 def fibonacci() -> Generator[int, None, None]:
     a, b = 0, 1
     while True:
@@ -222,7 +222,7 @@ def chunked(iterable: Iterator[T], size: int) -> Generator[list[T], None, None]:
         yield chunk
 
 
-#  Comprehensions 
+#  Comprehensions
 squares = [x**2 for x in range(10)]
 even_squares = [x**2 for x in range(10) if x % 2 == 0]
 matrix = [[i * j for j in range(1, 4)] for i in range(1, 4)]
@@ -235,7 +235,7 @@ unique_mods = {x % 7 for x in range(50)}
 sum_gen = sum(x**2 for x in range(100))
 any_large = any(x > 90 for x in range(100))
 
-#  Context Managers 
+#  Context Managers
 @contextlib.contextmanager
 def managed_resource(name: str) -> Generator[dict[str, Any], None, None]:
     resource: dict[str, Any] = {"name": name, "active": True}
@@ -250,7 +250,7 @@ def managed_resource(name: str) -> Generator[dict[str, Any], None, None]:
         print(f"Released {name}")
 
 
-#  Type Hints & Overloads 
+#  Type Hints & Overloads
 @overload
 def process(value: str) -> str: ...
 @overload
@@ -266,7 +266,7 @@ def process(value: Union[str, int, list[Any]]) -> Union[str, int, list[Any]]:
     return [process(v) for v in value]  # type: ignore[arg-type]
 
 
-#  Async 
+#  Async
 async def fetch_data(url: str) -> dict[str, Any]:
     await asyncio.sleep(0.1)  # simulate I/O
     return {"url": url, "status": 200, "data": []}
@@ -283,7 +283,7 @@ async def stream_items(items: list[T]) -> AsyncGenerator[T, None]:
         yield item
 
 
-#  Exception Hierarchy 
+#  Exception Hierarchy
 class AppError(Exception):
     def __init__(self, message: str, code: str, *, cause: Optional[Exception] = None) -> None:
         super().__init__(message)
@@ -307,7 +307,7 @@ class NotFoundError(AppError):
         self.id = id
 
 
-#  Match / Case (Python 3.10+) 
+#  Match / Case (Python 3.10+)
 def handle_command(command: dict[str, Any]) -> str:
     match command:
         case {"action": "create", "type": str(t), "data": dict(d)}:
@@ -322,7 +322,7 @@ def handle_command(command: dict[str, Any]) -> str:
             return "Invalid command"
 
 
-#  Walrus Operator 
+#  Walrus Operator
 data = [1, 4, 9, 16, 25, 36]
 if (n := len(data)) > 5:
     print(f"List is long: {n} items")

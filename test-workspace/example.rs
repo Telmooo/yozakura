@@ -1,21 +1,21 @@
 // Yozakura - Rust example
 // These files are all gibberish, do not attempt to run them
 
-//  Modules & Imports 
+//  Modules & Imports
 use std::collections::{HashMap, HashSet};
 use std::fmt;
 use std::sync::{Arc, Mutex};
 
-//  Constants 
+//  Constants
 const MAX_RETRIES: u32 = 3;
 const PI: f64 = std::f64::consts::PI;
 static APP_NAME: &str = "yozakura";
 
-//  Type Aliases 
+//  Type Aliases
 type Result<T, E = AppError> = std::result::Result<T, E>;
 type BoxedFuture<T> = std::pin::Pin<Box<dyn std::future::Future<Output = T> + Send>>;
 
-//  Enums 
+//  Enums
 #[derive(Debug, Clone, PartialEq)]
 enum Shape {
     Circle { radius: f64 },
@@ -50,7 +50,7 @@ impl fmt::Display for Shape {
     }
 }
 
-//  Error Handling 
+//  Error Handling
 #[derive(Debug, thiserror::Error)]
 enum AppError {
     #[error("Not found: {0}")]
@@ -66,7 +66,7 @@ enum AppError {
     Parse(String),
 }
 
-//  Structs 
+//  Structs
 #[derive(Debug, Clone)]
 struct Point {
     x: f64,
@@ -101,7 +101,7 @@ impl Default for Point {
     }
 }
 
-//  Traits 
+//  Traits
 trait Area {
     fn area(&self) -> f64;
 }
@@ -116,7 +116,7 @@ trait Geometry: Area + Perimeter + fmt::Debug {
     }
 }
 
-//  Generics & Lifetimes 
+//  Generics & Lifetimes
 struct Cache<'a, K, V> {
     store: HashMap<K, V>,
     name: &'a str,
@@ -150,7 +150,7 @@ where
     }
 }
 
-//  Closures & Iterators 
+//  Closures & Iterators
 fn demonstrate_iterators() {
     let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -190,7 +190,7 @@ fn demonstrate_iterators() {
         .collect();
 }
 
-//  Pattern Matching 
+//  Pattern Matching
 fn classify_number(n: i64) -> &'static str {
     match n {
         i64::MIN..=-1 => "negative",
@@ -210,7 +210,7 @@ fn process_option<T: fmt::Debug>(opt: Option<T>) -> String {
     }
 }
 
-//  Smart Pointers 
+//  Smart Pointers
 fn demonstrate_smart_pointers() {
     // Box - heap allocation
     let boxed: Box<i32> = Box::new(42);
@@ -231,7 +231,7 @@ fn demonstrate_smart_pointers() {
     });
 }
 
-//  Macros 
+//  Macros
 macro_rules! hashmap {
     ($($key:expr => $value:expr),* $(,)?) => {{
         let mut map = HashMap::new();
@@ -250,7 +250,7 @@ macro_rules! assert_approx_eq {
     };
 }
 
-//  Async 
+//  Async
 async fn fetch_data(url: &str) -> Result<String> {
     // Simulate async work
     tokio::time::sleep(std::time::Duration::from_millis(10)).await;
@@ -262,7 +262,7 @@ async fn parallel_fetch(urls: &[&str]) -> Vec<Result<String>> {
     futures::future::join_all(futures).await
 }
 
-//  Main 
+//  Main
 fn main() {
     let circle = Shape::Circle { radius: 5.0 };
     let rect = Shape::Rectangle { width: 4.0, height: 6.0 };

@@ -1,7 +1,7 @@
 // Yozakura - JS example
 // These files are all gibberish, do not attempt to run them
 
-//  Imports & Exports 
+//  Imports & Exports
 import fs from "node:fs/promises";
 import { EventEmitter } from "node:events";
 import path, { join, resolve } from "node:path";
@@ -9,14 +9,14 @@ import path, { join, resolve } from "node:path";
 export const VERSION = "1.0.0";
 export default class Application {}
 
-//  Constants & Primitives 
+//  Constants & Primitives
 const MAX_RETRIES = 3;
 const PI = 3.14159265358979;
 const isProduction = process.env.NODE_ENV === "production";
 const nothing = null;
 const missing = undefined;
 
-//  Template Literals 
+//  Template Literals
 const greeting = (name, age) => `Hello, ${name}! You are ${age} years old.`;
 const multiLine = `
   First line
@@ -24,15 +24,15 @@ const multiLine = `
   Third line
 `;
 
-//  Regular Expressions 
+//  Regular Expressions
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const urlPattern = new RegExp("https?://[\\w./]+", "gi");
 
-//  Destructuring 
+//  Destructuring
 const { name: firstName, age = 25, ...rest } = { name: "Alice", age: 30, city: "City" };
 const [head, second, ...tail] = [1, 2, 3, 4, 5];
 
-//  Classes 
+//  Classes
 class Animal {
   #name; // private field
   static count = 0;
@@ -77,7 +77,7 @@ class Dog extends Animal {
   }
 }
 
-//  Async / Await 
+//  Async / Await
 async function fetchUser(id) {
   try {
     const response = await fetch(`https://api.example.com/users/${id}`);
@@ -98,7 +98,7 @@ async function fetchUser(id) {
   }
 }
 
-//  Promises 
+//  Promises
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const withRetry = (fn, retries = MAX_RETRIES) =>
@@ -115,7 +115,7 @@ Promise.allSettled([fetchUser(1), fetchUser(2), fetchUser(3)]).then((results) =>
   });
 });
 
-//  Generators 
+//  Generators
 function* range(start, end, step = 1) {
   for (let i = start; i < end; i += step) {
     yield i;
@@ -129,7 +129,7 @@ async function* asyncRange(start, end) {
   }
 }
 
-//  Higher-Order Functions 
+//  Higher-Order Functions
 const compose =
   (...fns) =>
   (x) =>
@@ -151,7 +151,7 @@ const memoize = (fn) => {
   };
 };
 
-//  Optional Chaining & Nullish Coalescing 
+//  Optional Chaining & Nullish Coalescing
 const user = {
   profile: {
     address: {
@@ -164,7 +164,7 @@ const city = user?.profile?.address?.city ?? "Unknown";
 const zip = user?.profile?.address?.zip ?? "N/A";
 const adminEmail = user?.admin?.email ?? null;
 
-//  Spread & Rest 
+//  Spread & Rest
 const defaults = { timeout: 5000, retries: 3, verbose: false };
 const options = { ...defaults, timeout: 10000, debug: true };
 
@@ -172,7 +172,7 @@ function sum(...numbers) {
   return numbers.reduce((a, b) => a + b, 0);
 }
 
-//  Symbols & WeakMap 
+//  Symbols & WeakMap
 const id = Symbol("id");
 const secret = Symbol.for("app.secret");
 
@@ -186,7 +186,7 @@ class SecureStore {
   }
 }
 
-//  Proxy & Reflect 
+//  Proxy & Reflect
 const handler = {
   get(target, prop, receiver) {
     console.log(`Getting: ${String(prop)}`);
@@ -200,7 +200,7 @@ const handler = {
 
 const numbers = new Proxy({}, handler);
 
-//  Error Types 
+//  Error Types
 class AppError extends Error {
   constructor(message, code, cause) {
     super(message, { cause });
@@ -217,7 +217,7 @@ class ValidationError extends AppError {
   }
 }
 
-//  Array Methods 
+//  Array Methods
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const evens = data.filter((n) => n % 2 === 0);
 const doubled = data.map((n) => n * 2);
@@ -227,7 +227,7 @@ const allPositive = data.every((n) => n > 0);
 const hasNeg = data.some((n) => n < 0);
 const flat = [[1, 2], [3, [4, 5]]].flat(Infinity);
 
-//  WeakRef & FinalizationRegistry 
+//  WeakRef & FinalizationRegistry
 const registry = new FinalizationRegistry((value) => {
   console.log(`${value} was garbage collected`);
 });
