@@ -1,0 +1,270 @@
+# Yozakura - TOML example
+# These files are all gibberish, do not attempt to run them
+
+#  Top-level scalars 
+name        = "yozakura"
+version     = "1.0.0"
+description = "A dark VSCode theme"
+license     = "MIT"
+active      = true
+downloads   = 9876
+price       = 0.0
+nothing     = ""          # TOML has no null - use empty string or omit key
+
+#  Integers 
+port           = 8080
+max_retries    = 3
+big_number     = 1_000_000       # underscores for readability
+negative       = -42
+hex_color      = 0xC792EA
+octal_perms    = 0o755
+binary_flags   = 0b11001010
+
+#  Floats 
+pi             = 3.14159265358979
+scientific     = 6.674e-11
+negative_float = -273.15
+infinity       = inf
+neg_infinity   = -inf
+not_a_number   = nan
+
+#  Booleans 
+is_active  = true
+is_deleted = false
+
+#  Datetimes 
+created_at   = 2026-03-28T10:30:00Z            # offset datetime
+updated_at   = 2026-03-28T12:00:00+01:00       # with timezone offset
+local_dt     = 2026-03-28T10:30:00             # local datetime (no offset)
+release_date = 2026-03-28                       # local date
+start_time   = 10:30:00                         # local time
+
+#  Strings 
+plain       = "Hello, World!"
+with_escape = "Line1\nLine2\tTabbed\n\"Quoted\""
+with_unicode = "Cherry blossom: \u6843\u306e\u82b1 \U0001F338"
+
+# Literal string (no escaping)
+literal     = 'No \n escape processing here.'
+
+# Multi-line basic string
+multiline_basic = """
+  This string spans
+  multiple lines.
+  Backslash continuations \
+  work too.
+  """
+
+# Multi-line literal string
+multiline_literal = '''
+  No escape processing.
+  Even "quotes" and \backslashes are literal.
+  '''
+
+#  Arrays 
+keywords    = ["theme", "dark", "purple", "vscode"]
+ports       = [8080, 8443, 9090]
+pi_digits   = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+booleans    = [true, false, true]
+
+# Multi-line array
+languages = [
+  "JavaScript",
+  "TypeScript",
+  "Python",
+  "Rust",
+  "Go",
+  "Java",
+  "C++",
+]
+
+# Nested arrays
+matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+]
+
+#  Inline Tables 
+point        = { x = 3.0, y = 4.0 }
+server       = { host = "localhost", port = 8080, ssl = false }
+
+#  Standard Tables 
+[package]
+name        = "yozakura"
+version     = "1.0.0"
+edition     = "2024"
+description = "A dark VSCode theme"
+readme      = "README.md"
+license     = "MIT"
+keywords    = ["theme", "vscode", "dark"]
+categories  = ["development-tools"]
+include     = ["themes/**", "LICENSE", "README.md"]
+exclude     = ["test-workspace/**", ".vscode/**"]
+
+[package.metadata]
+msrv        = "1.75.0"
+ci-matrix   = ["stable", "beta", "nightly"]
+
+#  Dependencies-style Table 
+[dependencies]
+serde       = { version = "1.0", features = ["derive"] }
+tokio       = { version = "1", features = ["full"] }
+axum        = "0.7"
+sqlx        = { version = "0.7", features = ["postgres", "runtime-tokio-rustls"] }
+anyhow      = "1.0"
+thiserror   = "1.0"
+tracing     = "0.1"
+
+[dev-dependencies]
+tokio       = { version = "1", features = ["test-util"] }
+insta       = "1"
+tempfile    = "3"
+
+#  Nested Tables 
+[database]
+driver   = "postgres"
+host     = "localhost"
+port     = 5432
+name     = "yozakura_db"
+
+[database.pool]
+min                = 2
+max                = 10
+idle_timeout_ms    = 30_000
+connect_timeout_ms = 5_000
+
+[database.ssl]
+enabled             = false
+reject_unauthorized = true
+ca_cert             = "/etc/ssl/certs/ca.crt"
+
+[server]
+host    = "0.0.0.0"
+port    = 8080
+workers = 4
+
+[server.tls]
+enabled   = false
+cert_file = "/etc/ssl/certs/server.crt"
+key_file  = "/etc/ssl/private/server.key"
+
+[server.cors]
+enabled     = true
+origins     = ["http://localhost:3000", "https://app.example.com"]
+methods     = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+headers     = ["Content-Type", "Authorization", "X-Request-ID"]
+credentials = true
+max_age     = 86_400
+
+[logging]
+level   = "info"
+format  = "json"
+outputs = ["stdout", "file"]
+
+[logging.file]
+path      = "/var/log/yozakura/app.log"
+max_size  = "100MB"
+max_files = 5
+compress  = true
+
+#  Array of Tables 
+[[theme.colors]]
+name  = "keyword"
+hex   = "#C792EA"
+usage = "keywords, storage modifiers"
+
+[[theme.colors]]
+name  = "function"
+hex   = "#82AAFF"
+usage = "function names, method calls"
+
+[[theme.colors]]
+name  = "string"
+hex   = "#C3E88D"
+usage = "string literals"
+
+[[theme.colors]]
+name  = "number"
+hex   = "#F78C6C"
+usage = "numeric literals"
+
+[[theme.colors]]
+name  = "class"
+hex   = "#FFCB6B"
+usage = "class names, type identifiers"
+
+[[theme.colors]]
+name  = "comment"
+hex   = "#546E7A"
+usage = "line and block comments"
+
+[[theme.colors]]
+name  = "operator"
+hex   = "#89DDFF"
+usage = "operators, punctuation"
+
+[[theme.colors]]
+name  = "tag"
+hex   = "#F07178"
+usage = "HTML/JSX tags"
+
+#  Array of Tables with Sub-tables 
+[[routes]]
+path    = "/"
+method  = "GET"
+handler = "home"
+public  = true
+
+  [routes.cache]
+  enabled = true
+  ttl     = 300
+
+[[routes]]
+path    = "/api/users"
+method  = "GET"
+handler = "users.list"
+public  = false
+middleware = ["auth", "rate_limit"]
+
+  [routes.cache]
+  enabled = false
+
+[[routes]]
+path    = "/api/posts"
+method  = "POST"
+handler = "posts.create"
+public  = false
+middleware = ["auth", "validate", "audit"]
+
+#  Feature Flags 
+[features]
+default            = ["std", "serde"]
+std                = []
+serde              = ["dep:serde"]
+async              = ["dep:tokio"]
+full               = ["std", "serde", "async"]
+nightly            = []
+
+#  Build Profile 
+[profile.dev]
+opt-level        = 0
+debug            = true
+debug-assertions = true
+overflow-checks  = true
+lto              = false
+incremental      = true
+
+[profile.release]
+opt-level        = 3
+debug            = false
+debug-assertions = false
+overflow-checks  = false
+lto              = "thin"
+codegen-units    = 1
+strip            = "symbols"
+panic            = "abort"
+
+[profile.bench]
+inherits   = "release"
+debug      = true

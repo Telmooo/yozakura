@@ -1,0 +1,39 @@
+{
+  "name": "yozakura",
+  "displayName": "Yozakura",
+  "description": "My personal VSCode theme",
+  "private": false,
+  "version": "0.0.1",
+  "publisher": "telmooo",
+  "repository": {
+    "url": "https://github.com/Telmooo/yozakura.git",
+    "type": "git"
+  },
+  "icon": "icon.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "Theme",
+    "Dark",
+    "Dark Theme"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Yozakura",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Yozakura-color-theme.json"
+      }
+    ]
+  },
+  "packageManager": "pnpm@10.33.0",
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^10.0.6",
+    "release-it": "^19.2.4"
+  }
+}

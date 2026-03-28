@@ -1,0 +1,299 @@
+# Yozakura - YML example
+# These files are all gibberish, do not attempt to run them
+---
+# Document start marker above
+
+#  Scalars 
+name: yozakura
+version: "1.0.0"           # quoted string
+port: 8080                 # integer
+ratio: 3.14                # float
+bignum: 1_000_000          # underscored number
+is_active: true            # boolean true
+is_disabled: false         # boolean false
+nothing: null              # null
+empty: ~                   # also null
+date: 2026-03-28           # date
+datetime: 2026-03-28T10:30:00Z  # datetime
+hex: 0xFF                  # hexadecimal
+octal: 0o17                # octal
+
+#  Strings 
+plain_string: Hello, World!
+quoted_string: "This has \"quotes\" and \n newlines"
+single_quoted: 'No escape processing here: \n stays as-is'
+
+# Literal block scalar (preserves newlines)
+literal_block: |
+  Line one
+  Line two
+  Line three
+  Final line with trailing newline
+
+# Folded block scalar (folds newlines into spaces)
+folded_block: >
+  This is a very long sentence that
+  wraps across multiple lines but will
+  be joined into a single paragraph.
+
+# Literal with strip (removes trailing newlines)
+literal_strip: |-
+  No trailing newline
+  after this
+
+#  Sequences (Lists) 
+languages:
+  - JavaScript
+  - TypeScript
+  - Python
+  - Rust
+  - Go
+  - Java
+  - C++
+
+# Inline sequence
+colors: [red, green, blue, purple]
+
+# Mixed types
+mixed_list:
+  - string
+  - 42
+  - 3.14
+  - true
+  - null
+  - [nested, list]
+  - key: nested object
+
+#  Mappings (Objects) 
+author:
+  name: author
+  email: hello@example.com
+  location:
+    city: City
+    country: Country
+    coordinates:
+      lat: 123.456
+      lng: -678.321
+
+# Inline mapping
+server: {host: localhost, port: 8080, ssl: false}
+
+#  Nested Structures 
+config:
+  app:
+    name: yozakura
+    environment: production
+    debug: false
+    log_level: info
+
+  database:
+    driver: postgres
+    host: localhost
+    port: 5432
+    name: yozakura_db
+    credentials:
+      user: app_user
+      password: "${DB_PASSWORD}"  # environment variable reference
+    pool:
+      min: 2
+      max: 10
+      idle_timeout: 30000
+      connection_timeout: 5000
+    options:
+      ssl: false
+      connect_timeout: 10
+      application_name: yozakura
+
+  cache:
+    driver: redis
+    url: "redis://localhost:6379/0"
+    ttl: 3600
+    key_prefix: "yoza:"
+    compression: true
+    serializer: json
+
+  storage:
+    driver: s3
+    bucket: yozakura-assets
+    region: eu-west-1
+    path_style: false
+    credentials:
+      access_key: "${AWS_ACCESS_KEY}"
+      secret_key: "${AWS_SECRET_KEY}"
+
+#  Anchors & Aliases 
+# Anchors define a reusable node, aliases reference it
+defaults: &defaults
+  retry: 3
+  timeout: 30
+  verbose: false
+  headers:
+    content-type: application/json
+    accept: application/json
+
+# Aliases with merge key
+api_client:
+  <<: *defaults          # merge all keys from defaults
+  base_url: https://api.example.com
+  timeout: 60            # override timeout from defaults
+
+internal_api:
+  <<: *defaults
+  base_url: https://internal.example.com
+  headers:
+    <<: *defaults        # won't work nested, but shown for syntax
+    authorization: "Bearer ${TOKEN}"
+
+#  Complex Sequences of Mappings 
+routes:
+  - path: /
+    method: GET
+    handler: home
+    middleware: [auth, cache]
+    meta:
+      title: Home
+      public: true
+
+  - path: /api/users
+    method: GET
+    handler: users.list
+    middleware: [auth, rate_limit]
+    params:
+      page:
+        type: integer
+        default: 1
+        min: 1
+      limit:
+        type: integer
+        default: 20
+        max: 100
+
+  - path: /api/users/:id
+    method: GET
+    handler: users.get
+    middleware: [auth]
+    schema:
+      response:
+        type: object
+        required: [id, username, email]
+
+  - path: /api/posts
+    method: POST
+    handler: posts.create
+    middleware: [auth, validate]
+    body:
+      required: true
+      schema:
+        type: object
+        required: [title, body]
+        properties:
+          title: {type: string, minLength: 3, maxLength: 200}
+          body:  {type: string, minLength: 1}
+          tags:  {type: array, items: {type: string}}
+
+#  Multi-document (indicated by ---) 
+# The following would be a second document if in the same file.
+# We show the marker as a separator:
+---
+# Kubernetes-style manifest (second document)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yozakura
+  namespace: default
+  labels:
+    app: yozakura
+    version: "1.0.0"
+    managed-by: helm
+  annotations:
+    kubernetes.io/change-cause: "Initial deployment"
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: yozakura
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  template:
+    metadata:
+      labels:
+        app: yozakura
+        version: "1.0.0"
+
+    spec:
+      serviceAccountName: yozakura-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+
+      containers:
+        - name: app
+          image: ghcr.io/yozakura:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: "8080"
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: yozakura-secrets
+                  key: db-host
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: yozakura-secrets
+                  key: db-password
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+              readOnly: true
+
+      volumes:
+        - name: config
+          configMap:
+            name: yozakura-config
+
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: yozakura
+...
+# Document end marker above

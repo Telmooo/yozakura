@@ -1,0 +1,164 @@
+{
+  "name": "yozakura",
+  "version": "1.2.3",
+  "description": "A dark VSCode theme",
+  "active": true,
+  "downloads": 1234,
+  "rating": 4.8,
+  "price": null,
+  "keywords": ["theme", "dark", "purple", "vscode"],
+  "author": {
+    "location": {
+      "city": "Somewhere",
+      "country": "Nowhere",
+      "coordinates": {
+        "lat": 2341231.21,
+        "lng": -812321.21,
+        "precision": {
+          "level": "city",
+          "accuracy": 0.95,
+          "metadata": {
+            "source": "openstreetmap",
+            "timestamp": "2026-03-28T00:00:00Z",
+            "verified": true,
+            "tags": {
+              "region": "up",
+              "timezone": "UTC",
+              "extra": {
+                "dst": true,
+                "utcOffset": 0,
+                "deep": {
+                  "level8key": "this is level 8 nesting",
+                  "stillGoingDeeper": {
+                    "level9": "almost there",
+                    "andDeeper": {
+                      "level10": "very deep"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "colors": {
+    "background": "#160f1e",
+    "foreground": "#e0d4e8",
+    "accent": "#fdb8ff",
+    "syntax": {
+      "keyword": "#c792ea",
+      "function": "#82aaff",
+      "string": "#c3e88d",
+      "number": "#f78c6c",
+      "class": "#ffcb6b",
+      "comment": "#546e7a",
+      "operator": "#89ddff",
+      "tag": "#f07178",
+      "error": "#ff5370"
+    }
+  },
+  "engines": {
+    "vscode": "^1.110.0",
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.js",
+    "test": "vitest run",
+    "release": "release-it"
+  },
+  "config": {
+    "server": {
+      "host": "localhost",
+      "port": 8080,
+      "ssl": false,
+      "timeout": 30000,
+      "cors": {
+        "enabled": true,
+        "origins": ["http://localhost:3000", "https://app.example.com"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "PATCH"],
+        "headers": ["Content-Type", "Authorization"],
+        "credentials": true,
+        "maxAge": 86400
+      }
+    },
+    "database": {
+      "driver": "postgres",
+      "host": "localhost",
+      "port": 5432,
+      "name": "yozakura_db",
+      "pool": {
+        "min": 2,
+        "max": 10,
+        "idleTimeoutMs": 30000,
+        "connectionTimeoutMs": 5000
+      },
+      "ssl": {
+        "enabled": false,
+        "rejectUnauthorized": true,
+        "cert": null
+      }
+    },
+    "cache": {
+      "driver": "redis",
+      "ttl": 3600,
+      "keyPrefix": "yoza:",
+      "compression": true
+    },
+    "logging": {
+      "level": "info",
+      "format": "json",
+      "outputs": ["stdout", "file"],
+      "file": {
+        "path": "/var/log/yozakura/app.log",
+        "maxSize": "100MB",
+        "maxFiles": 5,
+        "compress": true
+      }
+    }
+  },
+  "features": [
+    {
+      "id": "syntax-highlighting",
+      "name": "Syntax Highlighting",
+      "enabled": true,
+      "languages": ["javascript", "typescript", "python", "rust", "go", "java", "cpp"],
+      "priority": 1
+    },
+    {
+      "id": "semantic-tokens",
+      "name": "Semantic Token Colors",
+      "enabled": false,
+      "priority": 2,
+      "options": {
+        "variables": true,
+        "parameters": false,
+        "properties": true
+      }
+    }
+  ],
+  "stats": {
+    "installs": 9876,
+    "rating": 4.8,
+    "reviews": 42,
+    "lastUpdated": "2026-03-28T10:30:00.000Z",
+    "size": 16843
+  },
+  "emptyObject": {},
+  "emptyArray": [],
+  "nullValue": null,
+  "trueValue": true,
+  "falseValue": false,
+  "integerValue": 42,
+  "floatValue": 3.14159,
+  "negativeValue": -273.15,
+  "largeInt": 9007199254740991,
+  "sciNotation": 1.5e-10,
+  "unicodeString": "夜桜 - Yozakura",
+  "escapedString": "Line 1\nLine 2\tTabbed\n\"Quoted\"",
+  "longString": "This is a very long string value that goes on for quite a while to test how the theme handles long string tokens in JSON files without any line breaks.",
+  "booleans": [true, false, true, null, true],
+  "mixedArray": [1, "two", 3.0, true, null, {"nested": "object"}, [1, 2, 3]]
+}
