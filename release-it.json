@@ -6,10 +6,14 @@
   },
   "github": {
     "release": true,
-    "releaseName": "v${version}"
+    "releaseName": "v${version}",
+    "assets": ["dist/yozakura.vsix"]
   },
   "npm": {
     "publish": false
+  },
+  "hooks": {
+    "after:bump": "pnpm run package"
   },
   "plugins": {
     "@release-it/conventional-changelog": {

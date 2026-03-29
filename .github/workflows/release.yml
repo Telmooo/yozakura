@@ -1,0 +1,74 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if release commit
+        run: |
+          if git log -1 --pretty=%s | grep -q "^chore(release):"; then
+            echo "SKIP=true" >> $GITHUB_ENV
+          fi
+
+      - name: Check for releasable commits
+        if: env.SKIP != 'true'
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            RANGE="HEAD"
+          else
+            RANGE="${LAST_TAG}..HEAD"
+          fi
+          if ! git log "$RANGE" --pretty=%s | grep -qE "^(feat|fix|perf)(\(.+\))?!?:"; then
+            echo "SKIP=true" >> $GITHUB_ENV
+          fi
+
+      - name: Install pnpm
+        if: env.SKIP != 'true'
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        if: env.SKIP != 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        if: env.SKIP != 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure git
+        if: env.SKIP != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run release-it
+        if: env.SKIP != 'true'
+        run: pnpm release --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to VS Code Marketplace
+        if: env.SKIP != 'true'
+        run: pnpm vsce publish --packagePath dist/yozakura.vsix --pat ${{ secrets.MARKETPLACE_TOKEN }}
+
+      - name: Publish to Open VSX
+        if: env.SKIP != 'true'
+        run: pnpm ovsx publish dist/yozakura.vsix --pat ${{ secrets.OPENVSX_TOKEN }}

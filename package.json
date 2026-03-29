@@ -14,6 +14,10 @@
   "engines": {
     "vscode": "^1.110.0"
   },
+  "scripts": {
+    "package": "mkdir -p dist && vsce package --no-dependencies -o './dist/yozakura.vsix'",
+    "release": "release-it"
+  },
   "categories": [
     "Themes"
   ],
@@ -34,6 +38,8 @@
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
     "@release-it/conventional-changelog": "^10.0.6",
+    "@vscode/vsce": "^3.7.1",
+    "ovsx": "^0.10.10",
     "release-it": "^19.2.4"
   }
 }
