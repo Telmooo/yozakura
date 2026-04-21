@@ -5,7 +5,7 @@
 
 [![License: MIT](https://img.shields.io/github/license/Telmooo/yozakura)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/v/release/Telmooo/yozakura)](https://github.com/Telmooo/yozakura/releases)
-[![Open VSX](https://img.shields.io/open-vsx/v/telmooo/yozakura)](https://open-vsx.org/extension/telmooo/yozakura)
+[![Open VSX](https://img.shields.io/open-vsx/v/telmooo/yozakura-code)](https://open-vsx.org/extension/telmooo/yozakura-code)
 
 </div>
 
