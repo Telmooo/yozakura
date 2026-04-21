@@ -1,0 +1,25 @@
+{
+  "git": {
+    "commitMessage": "chore(release): version ${version}",
+    "tagName": "v${version}",
+    "requireCleanWorkingDir": true
+  },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}",
+    "assets": ["dist/yozakura.vsix"]
+  },
+  "npm": {
+    "publish": false
+  },
+  "hooks": {
+    "after:bump": "pnpm run package"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "conventionalcommits",
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog"
+    }
+  }
+}
