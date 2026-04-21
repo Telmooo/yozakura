@@ -62,10 +62,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Extension
-        if: env.SKIP != 'true'
-        run: pnpm package
-
       - name: Publish to VS Code Marketplace
         if: env.SKIP != 'true'
         run: pnpm vsce publish --packagePath dist/yozakura.vsix --pat ${{ secrets.MARKETPLACE_TOKEN }}
